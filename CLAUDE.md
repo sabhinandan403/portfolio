@@ -3,7 +3,7 @@
 Personal portfolio site for **Abhinandan Kumar**, Data Engineer.
 Static, single file, no build step. `index.html` is the whole site.
 
-**Current: v1.5.** The visual system below is approved. Add to it; don't
+**Current: v1.6.** The visual system below is approved. Add to it; don't
 redesign it. If a change would alter the palette, the typefaces, the uppercase
 rule or the lineage-diagram signature, ask first.
 
@@ -21,7 +21,7 @@ No package.json, no bundler, no framework, and none should be added. The site
 must keep working opened as a `file://` URL with no network — which is why the
 fonts are in the repo rather than loaded from Google Fonts.
 
-## Design system (v1.5)
+## Design system (v1.6)
 
 **Concept — lineage.** The page reads as a directed flow, the way a pipeline
 does. The sticky left rail is a lineage spine whose nodes fill as sections
@@ -153,28 +153,38 @@ Three or four projects maximum. The strongest one goes first.
 ## Open items — pick up here
 
 The Work section is **built** — four case studies, written only from material
-Abhinandan supplied. Remaining:
+Abhinandan supplied, each with a defensible call and an outcome.
 
-- **Confidentiality.** He sent a real product screenshot (device IDs, room
-  names) and a screenshot of his own code-analysis session naming internal
-  modules and cache sources. **None of that is on the site and none of it
-  should go on it.** The cache case study describes the mechanism — Kafka CDC,
-  event-driven, no scheduled refresh — without naming files, libraries or the
-  subscribed sources. Keep it that way.
-- **A neutral heat-map graphic** was offered and not yet answered: a recreation
-  of the 24-hour / 15-minute-bucket band with invented data and no identifiers,
-  in the site palette. It would strengthen that case study.
-- **City** for `.rail-foot` — still just "India".
-- **Years of experience.** The DE resume says 3 years, the full-stack one says
-  2+. The site and hero metric say 3. Worth settling so they agree.
+- **Confidentiality — the standing rule.** He sent a real product screenshot
+  (device IDs, room names) and a screenshot of his own code-analysis session
+  naming internal modules and cache sources. **None of that is on the site and
+  none of it goes on it.** The cache case study describes the mechanism — Kafka
+  CDC, event-driven, no scheduled refresh — without naming files, libraries or
+  subscribed sources. The heat map is a recreation with invented data, labelled
+  as such on the page. Keep both that way.
 - **Open Graph tags** plus a preview image, so the URL renders as a card on
-  LinkedIn and WhatsApp.
+  LinkedIn and WhatsApp. Not built; the highest-value thing left.
+- **The phone number** is on the site and in the CV PDF. He was asked twice
+  and hasn't decided. Raise it once more before the repo goes public.
 
-Settled: the **DE resume is the canonical framing** — the site presents him as
-a Data Engineer, not full-stack. The contact links now point at the real
-profiles (`linkedin.com/in/abhinandan-kumar-611a64192`,
-`github.com/sabhinandan403`) while displaying the clean shortened text; this is
-deliberate, don't "fix" the display strings to match the hrefs.
+Settled: **DE resume is the canonical framing.** **3 years** experience — career
+started July 2023, so the hero metric is right and the full-stack CV's "2+" is
+the stale one. **Bangalore**, open to relocating, prefers remote or hybrid.
+Contact links display shortened text but point at the real profiles
+(`linkedin.com/in/abhinandan-kumar-611a64192`, `github.com/sabhinandan403`) —
+deliberate, don't "fix" the display strings to match.
+
+## The heat map figure
+
+Inside case study three. A recreated day: 24 hours × four 15-minute cells, the
+shading a **sequential ramp of the accent** — one hue, light to dark — because
+it encodes magnitude (motion count against thresholds), not category. That's
+why it doesn't need a third colour and mustn't get one.
+
+The data is invented and hardcoded as a 96-character string in the renderer;
+`x` marks a no-data gap, drawn with a hatch pattern. The legend is required —
+it's a magnitude encoding — and the caption on the page says it is a recreation
+and not the product UI. **Do not replace it with the real screenshot.**
 
 ## Deploying
 

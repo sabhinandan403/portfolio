@@ -286,6 +286,47 @@ ul.pts li b{color:var(--ink);font-weight:500}
 dl{margin:0}
 
 /* ============================================================
+   FIGURE — the sensor heat map, recreated
+   Sequential encoding: one hue, light to dark, by motion count.
+   Invented data. No device identifiers. Never use the real product UI.
+   ============================================================ */
+.fig{margin:22px 0 0}
+.fig-wrap{position:relative}
+.fig-scroll{overflow-x:auto;padding-bottom:6px}
+.fig-scroll svg{display:block;width:100%;min-width:560px;max-width:640px;height:auto}
+.fig-wrap::after{
+  content:"";position:absolute;top:0;right:0;bottom:6px;width:46px;
+  background:linear-gradient(to right,transparent,var(--ground));
+  pointer-events:none;opacity:0;transition:opacity .25s ease;
+}
+.fig-wrap.more::after{opacity:1}
+.fig .tick{font-family:var(--f-mono);font-size:7.5px;letter-spacing:.1em;fill:var(--muted)}
+.fig .cell{stroke:var(--ground);stroke-width:.5}
+.fig .cell.l0{fill:var(--surface-2)}
+.fig .cell.l1{fill:var(--hot);opacity:.26}
+.fig .cell.l2{fill:var(--hot);opacity:.6}
+.fig .cell.l3{fill:var(--hot)}
+.fig .cell.lx{fill:url(#nodata)}
+.fig-cap{
+  font-family:var(--f-mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);margin:10px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;
+}
+.fig-cap .key{display:inline-flex;align-items:center;gap:5px}
+.fig-cap .sw{width:11px;height:11px;border-radius:1px;display:inline-block}
+.fig-cap .sw.l0{background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--rule-2)}
+.fig-cap .sw.l1{background:var(--hot);opacity:.26}
+.fig-cap .sw.l2{background:var(--hot);opacity:.6}
+.fig-cap .sw.l3{background:var(--hot)}
+.fig-cap .sw.lx{
+  background:repeating-linear-gradient(45deg,var(--surface-2) 0 2px,var(--rule-2) 2px 3px);
+  box-shadow:inset 0 0 0 1px var(--rule-2);
+}
+.fig-note{
+  font-family:var(--f-mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin:8px 0 0;
+}
+
+/* ============================================================
    CASE STUDIES
    Problem, build, the defensible call, outcome. Beats are optional —
    a case study renders correctly with any subset of them.
@@ -411,7 +452,7 @@ footer{
         <a href="#credentials">Credentials</a>
         <a href="#contact">Contact</a>
       </div>
-      <div class="rail-foot">India<br><span class="open">Open to roles</span></div>
+      <div class="rail-foot">Bangalore, India<br><span class="open">Remote or hybrid</span></div>
       <button class="theme-btn" id="themeBtn" type="button">Theme</button>
     </div>
   </nav>
@@ -696,6 +737,36 @@ footer{
           <span class="beat-k">What I built</span>
           <p>A heat map that reads sensor data from Cassandra and lays a day out in <b>15-minute buckets</b> per device. Behind it sits one generalised aggregation function: which aggregation to run and which sensor to run it against both come from the request URL, so adding a sensor type doesn't mean writing new backend code.</p>
         </div>
+        <div class="fig">
+          <div class="fig-wrap">
+            <div class="fig-scroll" id="figScroll">
+              <svg viewBox="0 0 640 60" role="img"
+                   aria-label="A recreated day of motion activity: 24 hours split into 15-minute cells, shaded darker where the motion count crossed a higher threshold. Quiet overnight, busier in the morning, around midday and through the evening, with one gap where no data arrived.">
+                <defs>
+                  <pattern id="nodata" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                    <rect width="4" height="4" fill="var(--surface-2)"/>
+                    <line x1="0" y1="0" x2="0" y2="4" stroke="var(--rule-2)" stroke-width="1.4"/>
+                  </pattern>
+                </defs>
+                <text class="tick" x="0"   y="8">12 AM</text>
+                <text class="tick" x="157" y="8">6 AM</text>
+                <text class="tick" x="314" y="8">12 PM</text>
+                <text class="tick" x="471" y="8">6 PM</text>
+                <g id="figCells"></g>
+              </svg>
+            </div>
+          </div>
+          <p class="fig-cap">
+            <span>Motion count</span>
+            <span class="key"><i class="sw l0"></i>None</span>
+            <span class="key"><i class="sw l1"></i>Low</span>
+            <span class="key"><i class="sw l2"></i>Medium</span>
+            <span class="key"><i class="sw l3"></i>High</span>
+            <span class="key"><i class="sw lx"></i>No data</span>
+          </p>
+          <p class="fig-note">Recreated with invented data — not the product UI</p>
+        </div>
+
         <div class="beat call">
           <span class="beat-k">The call I'd defend</span>
           <p>Bucketing happens in the <b>timezone of the home the device sits in</b> — not the server's, and not the viewer's. That distinction is the whole thing: the person reading this is often in a different country from the person it's about. Get it wrong and someone's entire day shifts by hours, and a chart that's confidently wrong is worse than no chart at all.</p>
@@ -751,7 +822,7 @@ footer{
     <section id="contact">
       <p class="eyebrow">Contact</p>
       <h2>Open to data engineering roles</h2>
-      <p>India and remote. The fastest way to reach me is email.</p>
+      <p>Based in Bangalore, and open to relocating — though remote or hybrid suits me best. The fastest way to reach me is email.</p>
       <div class="contact-links">
         <a href="mailto:sabhinandan403@gmail.com"><span class="ck">Email</span><span class="cv">sabhinandan403@gmail.com</span></a>
         <a href="tel:+919817750262"><span class="ck">Phone</span><span class="cv">+91 98177 50262</span></a>
@@ -767,6 +838,42 @@ footer{
 
 <script>
 (function(){
+  /* ---------- heat map figure: 96 fifteen-minute cells across one day ----------
+     Shading is a sequential ramp of the accent — one hue, light to dark — because
+     it encodes magnitude (motion count against thresholds), not category. The data
+     is invented; 'x' marks a gap where nothing arrived. */
+  var figCells = document.getElementById('figCells');
+  if(figCells){
+    var day = '0000' + '0010' + '0000' + '0100' + '0000' + '0112'
+            + '1223' + '3323' + '2212' + '1121' + 'xx11' + '1212'
+            + '2332' + '3221' + '1112' + '1111' + '1211' + '2233'
+            + '3323' + '2322' + '2121' + '1110' + '1000' + '0100';
+    var groupW = 26.2, cellW = 5.6, gap = 0.6, top = 18, h = 26;
+    for(var i = 0; i < day.length; i++){
+      var g = Math.floor(i / 4), n = i % 4;
+      var x = g * groupW + n * (cellW + gap);
+      var r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      r.setAttribute('class', 'cell l' + day[i]);
+      r.setAttribute('x', x.toFixed(2));
+      r.setAttribute('y', top);
+      r.setAttribute('width', cellW);
+      r.setAttribute('height', h);
+      r.setAttribute('rx', '1');
+      figCells.appendChild(r);
+    }
+    var fs = document.getElementById('figScroll');
+    if(fs){
+      var fw = fs.parentNode;
+      var fsync = function(){
+        fw.classList.toggle('more', fs.scrollLeft + fs.clientWidth < fs.scrollWidth - 2);
+      };
+      fs.addEventListener('scroll', fsync, {passive:true});
+      window.addEventListener('resize', fsync);
+      fsync();
+      if(document.fonts && document.fonts.ready) document.fonts.ready.then(fsync);
+    }
+  }
+
   /* ---------- diagram: fade the right edge while more can be scrolled ---------- */
   var flow = document.getElementById('flow');
   if(flow){

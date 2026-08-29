@@ -74,6 +74,9 @@ try/catch so private-mode browsers degrade quietly.
 
 ## Versions
 
+**v1.6.0** — recreated sensor heat map added to the third case study (invented
+data, no identifiers); location, availability and the three-year figure settled.
+
 **v1.5.0** — case studies deepened: how the cache stays current and where it
 breaks, why medallion over reading Cassandra directly, and who the heat map is
 actually for.
