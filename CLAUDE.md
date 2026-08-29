@@ -3,7 +3,7 @@
 Personal portfolio site for **Abhinandan Kumar**, Data Engineer.
 Static, single file, no build step. `index.html` is the whole site.
 
-**Current: v1.6.** The visual system below is approved. Add to it; don't
+**Current: v1.8.** The visual system below is approved. Add to it; don't
 redesign it. If a change would alter the palette, the typefaces, the uppercase
 rule or the lineage-diagram signature, ask first.
 
@@ -21,7 +21,7 @@ No package.json, no bundler, no framework, and none should be added. The site
 must keep working opened as a `file://` URL with no network — which is why the
 fonts are in the repo rather than loaded from Google Fonts.
 
-## Design system (v1.6)
+## Design system (v1.8)
 
 **Concept — lineage.** The page reads as a directed flow, the way a pipeline
 does. The sticky left rail is a lineage spine whose nodes fill as sections
@@ -162,8 +162,13 @@ Abhinandan supplied, each with a defensible call and an outcome.
   CDC, event-driven, no scheduled refresh — without naming files, libraries or
   subscribed sources. The heat map is a recreation with invented data, labelled
   as such on the page. Keep both that way.
-- **The phone number** is on the site and in the CV PDF. He was asked twice
-  and hasn't decided. Raise it once more before the repo goes public.
+- **The phone number is gone and stays gone.** As of v1.8 this repo is a
+  public artefact: the URL goes on his LinkedIn and his resume. No phone number
+  on the page, and none in the CV committed here. `build_cv.js` takes
+  `PUBLIC=1` to drop it; the private build that keeps it is emailed to
+  recruiters directly and **must never be committed**. Before any change to the
+  contact list or the CV, run `grep -rl "98177" . --exclude-dir=.git` and
+  expect no matches.
 
 Settled: **DE resume is the canonical framing.** **3 years** experience — career
 started July 2023, so the hero metric is right and the full-stack CV's "2+" is
@@ -186,23 +191,28 @@ and not the product UI. **Do not replace it with the real screenshot.**
 
 ## Deploying
 
-No remote is configured yet. The plan agreed with him: a GitHub Pages **user
-site** — a public repo named `<username>.github.io`, which serves at the root
-domain with no subpath. All asset paths in `index.html` are relative, so a
-project-repo subpath would also work if he prefers.
+The site is public. It is a static folder with no build step, so any static
+host serves it: publish directory is the repo root, build command is empty.
+
+**The URL matters more than the host here.** His GitHub handle is
+`sabhinandan403`, so GitHub Pages would give him `sabhinandan403.github.io` —
+which does not read as his name on a resume. Netlify lets him choose the
+subdomain, so `abhinandan-kumar.netlify.app` is the better URL for the stated
+purpose. If he later buys `abhinandankumar.dev`, Netlify points at the same
+site.
+
+**Before publishing, `SITE_URL` must be replaced.** The Open Graph and
+canonical tags in `index.html` carry a `SITE_URL` placeholder, five
+occurrences. Scrapers need absolute URLs, so until it is replaced the LinkedIn
+preview card renders blank:
 
 ```bash
-git remote add origin https://github.com/<username>/<username>.github.io.git
-git push -u origin main && git push --tags
+sed -i '' 's|SITE_URL|https://the-live-url|g' index.html   # drop '' on Linux
 ```
 
-GitHub no longer accepts passwords over HTTPS — `gh auth login` (after
-`brew install gh`) or a personal access token is required first. This is where
-the deploy will fail if it fails. Pages auto-enables for user-site repos;
-otherwise Settings → Pages → Deploy from a branch → `main` / root.
-
-Netlify Drop (drag the folder to app.netlify.com/drop) is the zero-setup
-alternative and is the better host if he later buys a domain.
+`og-image.png` (1200x630, site palette) is the card image. After the first
+deploy, run the URL through LinkedIn's Post Inspector once — LinkedIn caches
+previews hard and the first share will otherwise show nothing.
 
 ## Working on this
 
