@@ -150,12 +150,58 @@ Each case study follows this shape, which comes from IxDF's portfolio guidance
 
 Three or four projects maximum. The strongest one goes first.
 
-## Open items
+## Open items — pick up here
 
-- **Project material** for the Work section — the blocker on finishing v1.2.
-- **Location** in `.rail-foot` says "India"; a city was never confirmed.
-- GitHub and LinkedIn handles came from the CV and have not been verified to
+**1. The Work section is empty.** `#projects` holds a dashed placeholder that
+reads "awaiting project material". This is the only unfinished part of the site
+and the highest-value thing left to do — see the case-study pattern above.
+
+For each of three or four projects, Abhinandan needs to supply: what it was and
+who for · what was broken before · his actual role (sole owner? one of four?) ·
+what he built · **the decision he'd defend in an interview** · what went wrong
+and how he found it · the outcome · what he'd do differently · any screenshot or
+diagram. The decision question is the one that matters most; it's what
+separates the site from every other CV listing Snowflake and dbt.
+
+Do not invent project details or outcomes. If something isn't confirmed by him,
+it doesn't go on the page.
+
+**2. Decide before making the site public.** Either fill the Work section or
+hide it — shipping a visible "awaiting project material" placeholder reads as
+half-built to a recruiter. Hiding it means commenting out the `#projects`
+section and its rail link; the rail handles five items fine.
+
+**3. Unconfirmed details.**
+- `.rail-foot` says "India" — a city was never confirmed.
+- The GitHub and LinkedIn handles came from the CV; nobody has checked they
   resolve.
+- The site and the CV PDF both carry his phone number. Once the repo is public
+  and indexed, that's public. He was asked and hasn't decided; offer again
+  before the first push.
+
+**4. Not yet built, worth doing.** Open Graph / Twitter meta tags plus a preview
+image, so the URL renders as a card when he shares it on LinkedIn or WhatsApp
+rather than as a bare link. He's shared it with recruiters, so this matters.
+
+## Deploying
+
+No remote is configured yet. The plan agreed with him: a GitHub Pages **user
+site** — a public repo named `<username>.github.io`, which serves at the root
+domain with no subpath. All asset paths in `index.html` are relative, so a
+project-repo subpath would also work if he prefers.
+
+```bash
+git remote add origin https://github.com/<username>/<username>.github.io.git
+git push -u origin main && git push --tags
+```
+
+GitHub no longer accepts passwords over HTTPS — `gh auth login` (after
+`brew install gh`) or a personal access token is required first. This is where
+the deploy will fail if it fails. Pages auto-enables for user-site repos;
+otherwise Settings → Pages → Deploy from a branch → `main` / root.
+
+Netlify Drop (drag the folder to app.netlify.com/drop) is the zero-setup
+alternative and is the better host if he later buys a domain.
 
 ## Working on this
 
