@@ -1,14 +1,15 @@
 # Abhinandan Kumar — Portfolio
 
 A single-file, dependency-free portfolio site. Everything lives in `index.html`:
-markup, styles and script. The only external request is the Google Fonts
-stylesheet, and there are real fallback stacks behind every face, so the page
-also renders correctly with no network at all.
+markup, styles and script. The typefaces are self-hosted in `fonts/`, so the
+page makes **no external requests at all** and renders identically offline.
 
 ```
 index.html                  the whole site
+fonts/                      Bricolage Grotesque, Newsreader, JetBrains Mono
 Abhinandan_Kumar_CV.pdf     linked by the "Download CV" button
 README.md
+CLAUDE.md                   the design system and rules for changing it
 ```
 
 ## Run it locally
@@ -51,12 +52,14 @@ or connect the repo. No build command, no output directory; it's already built.
 ## Editing it
 
 - **Colours** are CSS custom properties in the `:root` block near the top.
-  Change `--signal` (the copper accent) and the whole page follows. The dark
-  palette is redefined twice below it — once for `prefers-color-scheme: dark`
-  and once for the manual `[data-theme="dark"]` toggle — so change a colour in
-  all three places.
-- **Type** is three faces with fixed roles: Archivo for display, Source Serif 4
-  for prose, JetBrains Mono for labels, chips and data.
+  There are two accents with distinct meanings — `--hot` (tangerine) for energy
+  and attention, `--cool` (teal) for outcomes and anything verified. The dark
+  palette is redefined twice below — once for `prefers-color-scheme: dark` and
+  once for the manual `[data-theme="dark"]` toggle — so change a colour in all
+  three places.
+- **Type** is three faces with fixed roles: Bricolage Grotesque for display,
+  Newsreader for prose, JetBrains Mono for labels, chips and data. Headings run
+  uppercase; prose stays sentence case.
 - **The left rail** is generated from the `<a>` tags inside `nav.rail`; the
   script matches each `href` to a section `id`. Add a section, add a link,
   and the scroll tracking picks it up.
@@ -71,8 +74,13 @@ try/catch so private-mode browsers degrade quietly.
 
 ## Versions
 
-**v1.0.0** — design locked. Lineage-rail layout, copper-on-graphite palette,
-Archivo / Source Serif 4 / JetBrains Mono, both themes, projects section
-scaffolded but not yet populated.
+**v1.2.0** — warm redesign. Warm-white ground with tangerine and teal accents,
+Bricolage Grotesque / Newsreader / JetBrains Mono, uppercase headings, the run
+activity strip as signature, self-hosted fonts, copy-email with feedback,
+staggered hero reveal and scroll-swept headings. Work section restructured for
+case studies, still awaiting project material.
+
+**v1.0.0** — first locked design. Lineage-rail layout, copper-on-graphite
+palette, Archivo / Source Serif 4 / JetBrains Mono.
 
 See `CLAUDE.md` for the design system and the rules for changing it.
