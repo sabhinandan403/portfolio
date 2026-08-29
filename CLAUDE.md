@@ -3,7 +3,7 @@
 Personal portfolio site for **Abhinandan Kumar**, Data Engineer.
 Static, single file, no build step. `index.html` is the whole site.
 
-**Current: v1.6.** The visual system below is approved. Add to it; don't
+**Current: v1.7.** The visual system below is approved. Add to it; don't
 redesign it. If a change would alter the palette, the typefaces, the uppercase
 rule or the lineage-diagram signature, ask first.
 
@@ -21,7 +21,7 @@ No package.json, no bundler, no framework, and none should be added. The site
 must keep working opened as a `file://` URL with no network — which is why the
 fonts are in the repo rather than loaded from Google Fonts.
 
-## Design system (v1.6)
+## Design system (v1.7)
 
 **Concept — lineage.** The page reads as a directed flow, the way a pipeline
 does. The sticky left rail is a lineage spine whose nodes fill as sections
@@ -173,6 +173,23 @@ the stale one. **Bangalore**, open to relocating, prefers remote or hybrid.
 Contact links display shortened text but point at the real profiles
 (`linkedin.com/in/abhinandan-kumar-611a64192`, `github.com/sabhinandan403`) —
 deliberate, don't "fix" the display strings to match.
+
+## Case-study language
+
+The same rule as the hero diagram, and Abhinandan asked for it explicitly:
+**a recruiter or HR screener has to be able to read these.** Internal company
+lingo is out — "v1/v2 APIs" meant nothing outside Vantiva and is gone. So are
+bare module names, product codes and unglossed acronyms in the prose.
+
+The pattern: the plain-language sentence carries the meaning, and the technical
+term rides alongside it in the same sentence ("a layered setup — raw, then
+cleaned, then report-ready tables … the pattern known as medallion"). The stack
+chips above each case study are where an engineer looks for the unglossed
+version, so the prose doesn't have to carry it.
+
+Case-study titles are human, not internal: "The page that took seven seconds",
+not "V2 APIs on a warm cache". If a title only makes sense to someone who
+worked on the project, it's the wrong title.
 
 ## The heat map figure
 

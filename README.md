@@ -74,6 +74,9 @@ try/catch so private-mode browsers degrade quietly.
 
 ## Versions
 
+**v1.7.0** — case studies rewritten for a non-technical reader: internal lingo
+removed, jargon glossed in place, titles made human.
+
 **v1.6.0** — recreated sensor heat map added to the third case study (invented
 data, no identifiers); location, availability and the three-year figure settled.
 

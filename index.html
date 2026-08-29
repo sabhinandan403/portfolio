@@ -290,7 +290,7 @@ dl{margin:0}
    Sequential encoding: one hue, light to dark, by motion count.
    Invented data. No device identifiers. Never use the real product UI.
    ============================================================ */
-.fig{margin:22px 0 0}
+.fig{margin:22px 0 26px}
 .fig-wrap{position:relative}
 .fig-scroll{overflow-x:auto;padding-bottom:6px}
 .fig-scroll svg{display:block;width:100%;min-width:560px;max-width:640px;height:auto}
@@ -675,25 +675,25 @@ footer{
       <h2>Selected case studies</h2>
 
       <article class="case">
-        <h3>V2 APIs on a warm cache</h3>
+        <h3>The page that took seven seconds</h3>
         <p class="case-meta">Vantiva India · HomeSight Care · Architecture &amp; implementation</p>
         <div class="chips"><span>Node.js</span><span>Kafka</span><span>In-memory cache</span><span>RBAC/ABAC</span><span>React</span></div>
 
         <div class="beat">
           <span class="beat-k">The problem</span>
-          <p>The account page didn't make one slow request — it made several. Every v1 endpoint went straight to the database, and some of them took <b>seven seconds</b>. Users watched the page assemble itself piece by piece.</p>
+          <p>Opening your account page didn't make one slow request — it made several. Each one went to the database and fetched the same slow-moving information over again, and some took <b>seven seconds</b> to come back. People sat and watched the page assemble itself piece by piece.</p>
         </div>
         <div class="beat">
           <span class="beat-k">What I built</span>
-          <p>A v2 API layer that stops going to the database for things that rarely change. User records, HC200 device details and account details are loaded into an in-memory cache when the server starts and indexed for direct lookup, with the database still behind it as a fallback. I owned the <b>users</b> and <b>appregistry</b> modules, plus the frontend work for appregistry, and added RBAC/ABAC across the migrated endpoints.</p>
+          <p>A rebuilt set of APIs that stop asking the database for things that rarely change. The information behind an account — the people on it, their home devices, the account itself — is loaded into the server's memory the moment it starts and indexed so any of it can be found instantly, with the database still behind it if something is missing. I owned the parts covering <b>user accounts</b> and <b>app registration</b>, including the screens for the second, and added role- and attribute-based permission checks across everything I moved.</p>
         </div>
         <div class="beat">
           <span class="beat-k">How it stays current</span>
-          <p>Nothing refreshes the cache on a timer. A Kafka consumer subscribes to change events on each source and applies inserts, updates and deletes to the in-memory copy <b>as they arrive</b>, so it tracks the database continuously instead of going stale between polls. The honest limit: if that consumer drops its connection there's no periodic recovery poll behind it, and the cache stops tracking until it reconnects. Knowing exactly where that edge sits is worth more than pretending it isn't there.</p>
+          <p>Nothing reloads on a schedule. Every time a record changes in the database that change is published as an event, and it's applied to the copy in memory <b>as it arrives</b> — so the copy keeps pace continuously rather than drifting out of date between refreshes. The honest limit: if that stream of events disconnects, nothing periodically re-reads everything as a safety net, so the copy stops updating until it reconnects. Knowing exactly where that edge sits is worth more than pretending it isn't there.</p>
         </div>
         <div class="beat call">
           <span class="beat-k">The call I'd defend</span>
-          <p>I had a free hand on the architecture. The application was already tightly coupled, so breaking it into services would have meant paying the whole distributed-systems cost up front for none of the benefit. I chose a monolith — but a <b>vertical modular</b> one, where users and appregistry own their own boundaries inside a single deployable. It's the shape that lets you pull a service out later if it ever earns it, without pretending you're already there.</p>
+          <p>I had a free hand on the architecture. The application was already tightly coupled, so breaking it into separate services would have meant paying the full cost of a distributed system up front and getting none of the benefit. I kept it as one deployable application — but structured so each area, user accounts and app registration, owns its own boundary inside it. That's the shape that lets you split a piece off later if it ever earns it, without pretending you're already there.</p>
         </div>
         <div class="outcome">
           <span class="lab">Outcome</span>
@@ -712,7 +712,7 @@ footer{
         </div>
         <div class="beat">
           <span class="beat-k">What I built</span>
-          <p>Ingestion out of Cassandra into Databricks, then a <b>medallion</b> layout — raw, cleaned, and gold tables rebuilt daily — so reporting reads from a curated layer rather than from the device stream. On top of it, an on-demand Excel report driven by an AWS Lambda, letting site managers pull router and device performance for the last 24 hours or a custom range across 50+ sites.</p>
+          <p>Ingestion out of Cassandra into Databricks, then a layered setup — raw, then cleaned, then report-ready tables rebuilt every day, the pattern known as <b>medallion</b> — so reporting reads from a curated layer rather than from the raw device stream. On top of it, an on-demand Excel report driven by an AWS Lambda, letting site managers pull router and device performance for the last 24 hours or a custom range across 50+ sites.</p>
         </div>
         <div class="beat call">
           <span class="beat-k">The call I'd defend</span>
@@ -720,7 +720,7 @@ footer{
         </div>
         <div class="outcome">
           <span class="lab">Outcome</span>
-          <span class="val">Gold tables feed Power BI dashboards used by a senior architect, the sales team and clients, and the same curated layer now backs ML work including churn prediction. The same reports were how we traced LoRa and Zigbee faults — routers dropping off, devices failing to sync, missing packets — supporting a ~99% uptime SLA.</span>
+          <span class="val">Those report-ready tables feed Power BI dashboards used by a senior architect, the sales team and clients, and the same curated layer now backs ML work including churn prediction. The same reports were how we traced LoRa and Zigbee faults — routers dropping off, devices failing to sync, missing packets — supporting a ~99% uptime SLA.</span>
         </div>
       </article>
 
@@ -788,11 +788,11 @@ footer{
         </div>
         <div class="beat">
           <span class="beat-k">What I'm building</span>
-          <p>I wrote the definitions first, starting from the literal reading of each KPI and settling them with the business. Then source grain investigation, the business definitions, and source-to-target mapping. The dbt models orchestrating the ELT pipelines are being built on top of that groundwork now.</p>
+          <p>I wrote the definitions first, starting from the literal reading of each KPI and settling each one with the business. Then the groundwork underneath: working out what a single row in each source table actually represents, agreeing the business meaning, and mapping every source field to where it lands. The models that will run the pipelines are being built on that foundation now, in dbt.</p>
         </div>
         <div class="beat call">
           <span class="beat-k">The call I'd defend</span>
-          <p>Definitions before models. It's slower at the start and it looks like nothing is being built — but a mart whose grain and business meaning were settled up front is one you can still trust a year later, and one nobody has to re-litigate every time a number looks off.</p>
+          <p>Definitions before models. It's slower at the start and it looks like nothing is being built — but a reporting table whose meaning was settled up front is one people still trust a year later, and one nobody has to re-argue every time a number looks wrong.</p>
         </div>
       </article>
 
