@@ -48,14 +48,14 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --ground:#15110E;
-    --surface:#1D1815;
-    --surface-2:#262019;
-    --ink:#F2EEE9;
-    --ink-2:#C9C0B6;
-    --muted:#948A7E;
-    --rule:#2C2520;
-    --rule-2:#3D342C;
+    --ground:#0F1216;
+    --surface:#161A1F;
+    --surface-2:#1E242A;
+    --ink:#E8E9E6;
+    --ink-2:#BFC5CC;
+    --muted:#949CA6;
+    --rule:#252B32;
+    --rule-2:#39414A;
     --hot:#FF8A3D;
     --hot-2:#FFA163;
     --cool:#45B3A3;
@@ -64,14 +64,14 @@
   }
 }
 :root[data-theme="dark"]{
-  --ground:#15110E;
-  --surface:#1D1815;
-  --surface-2:#262019;
-  --ink:#F2EEE9;
-  --ink-2:#C9C0B6;
-  --muted:#948A7E;
-  --rule:#2C2520;
-  --rule-2:#3D342C;
+  --ground:#0F1216;
+  --surface:#161A1F;
+  --surface-2:#1E242A;
+  --ink:#E8E9E6;
+  --ink-2:#BFC5CC;
+  --muted:#949CA6;
+  --rule:#252B32;
+  --rule-2:#39414A;
   --hot:#FF8A3D;
   --hot-2:#FFA163;
   --cool:#45B3A3;
@@ -165,9 +165,10 @@ p{margin:0 0 18px}
    HERO
    ============================================================ */
 .hero{padding:clamp(80px,12vh,120px) 0 8px}
+/* the name stays title case — it's a name, not a label */
 .hero h1{
   font-size:clamp(44px,6.6vw,74px);font-weight:800;line-height:.92;
-  letter-spacing:-.026em;text-transform:uppercase;margin:0 0 24px;
+  letter-spacing:-.028em;margin:0 0 24px;
 }
 .hero h1 .two{display:block;color:var(--hot)}
 .role{

@@ -29,19 +29,22 @@ pass; it doubles as section nav. Under 900px it collapses to a horizontal
 scrolling tab strip with a progress underline.
 
 **Colour — warm white ground, two accents with distinct meanings.**
-The ground is a warm white, deliberately *not* the cream (#F4F1EA-ish) that
-reads as AI-generated. Dark mode is a warm espresso black, not a blue-black.
+The light ground is a warm white, deliberately *not* the cream (#F4F1EA-ish)
+that reads as AI-generated. The dark ground is the cool graphite carried over
+from v1 — Abhinandan chose it over a warm espresso black. Warm accents on a
+cool dark ground is the intended tension; don't "correct" it to match the
+light theme's warmth.
 
 | token | light | dark |
 |---|---|---|
-| `--ground` | `#FBF8F2` | `#15110E` |
-| `--surface` | `#FFFFFF` | `#1D1815` |
-| `--surface-2` | `#EFEAE0` | `#262019` |
-| `--ink` | `#201914` | `#F2EEE9` |
-| `--ink-2` | `#4A4139` | `#C9C0B6` |
-| `--muted` | `#7C736A` | `#948A7E` |
-| `--rule` | `#E5DFD3` | `#2C2520` |
-| `--rule-2` | `#CDC5B6` | `#3D342C` |
+| `--ground` | `#FBF8F2` | `#0F1216` |
+| `--surface` | `#FFFFFF` | `#161A1F` |
+| `--surface-2` | `#EFEAE0` | `#1E242A` |
+| `--ink` | `#201914` | `#E8E9E6` |
+| `--ink-2` | `#4A4139` | `#BFC5CC` |
+| `--muted` | `#7C736A` | `#949CA6` |
+| `--rule` | `#E5DFD3` | `#252B32` |
+| `--rule-2` | `#CDC5B6` | `#39414A` |
 | `--hot` (tangerine) | `#D9541A` | `#FF8A3D` |
 | `--cool` (teal) | `#0B6558` | `#45B3A3` |
 
@@ -78,6 +81,10 @@ structural: eyebrows, `h2`, `h3`, rail labels, buttons, company names, chips,
 field names, credential labels, the footer. **Sentence case for the hero thesis
 and all body prose** — uppercase destroys word-shape recognition and makes long
 lines measurably harder to read. Do not "fix" the prose by capitalising it.
+
+**Two exceptions, both deliberate:** the hero `h1` — his name — stays title
+case, because a name is a name and not a label. And the eyebrow directly above
+it is the only uppercase element allowed to sit against it.
 
 Uppercase always carries letter-spacing (`.11em`–`.2em` depending on size).
 
