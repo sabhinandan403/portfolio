@@ -47,24 +47,36 @@ copy with the private one.
 
 ## Deploy it
 
-Because it's static, every host works the same way: point it at this folder.
+Static folder, no build step: publish directory is this folder, build command
+is empty. Every host works the same way.
+
+**The URL is worth thinking about**, because it goes on a LinkedIn profile and
+a resume. A GitHub Pages *user site* is always `<github-username>.github.io` —
+which only reads well if the username reads like a name. Netlify lets you pick
+the subdomain, so `abhinandan-kumar.netlify.app` is available even though the
+GitHub handle isn't.
+
+**Netlify** — connect the repo at netlify.com (no build command, publish
+directory `.`), then Site settings → Change site name. Or drag this folder onto
+<https://app.netlify.com/drop> for a deploy with no git at all. Pushes
+redeploy automatically once the repo is connected.
 
 **GitHub Pages**
 
 ```bash
-git init
-git add .
-git commit -m "portfolio"
-git branch -M main
 git remote add origin git@github.com:<user>/<user>.github.io.git
 git push -u origin main
 ```
 
 Then Settings → Pages → Source: `main` / root. Live at
-`https://<user>.github.io`.
+`https://<user>.github.io`. HTTPS pushes need `gh auth login` or a personal
+access token — passwords stopped working years ago, and this is where the
+deploy usually stalls.
 
-**Netlify / Vercel / Cloudflare Pages** — drag the folder into the dashboard,
-or connect the repo. No build command, no output directory; it's already built.
+**After the first deploy**, paste the URL into LinkedIn's
+[Post Inspector](https://www.linkedin.com/post-inspector/) once. LinkedIn
+caches link previews aggressively, and this forces it to re-read the meta tags
+so your first share shows the card rather than a bare link.
 
 ## Editing it
 
@@ -80,8 +92,10 @@ or connect the repo. No build command, no output directory; it's already built.
 - **The left rail** is generated from the `<a>` tags inside `nav.rail`; the
   script matches each `href` to a section `id`. Add a section, add a link,
   and the scroll tracking picks it up.
-- **The projects section** is a placeholder. The card markup goes inside
-  `<section id="projects">`, replacing the `.slot` block.
+- **The projects section** holds four case studies inside
+  `<section id="projects">`. Each is a `.case` block with optional `.beat`,
+  `.beat.call` (the decision worth defending, tangerine rail) and `.outcome`
+  (teal rail) parts. CLAUDE.md documents the pattern and the language rule.
 
 ## Theme
 
@@ -90,6 +104,15 @@ rail overrides it and remembers the choice in `localStorage`, wrapped in
 try/catch so private-mode browsers degrade quietly.
 
 ## Versions
+
+**v1.8.0** — public release build. Phone number removed from the page and from
+the CV committed here (`build_cv.js PUBLIC=1`); the private build that keeps it
+is sent to recruiters directly. Open Graph, Twitter card, canonical and
+theme-color meta added, plus `og-image.png` (1200x630) for link previews.
+
+**v1.7.0** — case studies rewritten for a non-technical reader: internal
+project shorthand replaced with plain description, so the Work section reads
+without company context.
 
 **v1.6.0** — recreated sensor heat map added to the third case study (invented
 data, no identifiers); location, availability and the three-year figure settled.
