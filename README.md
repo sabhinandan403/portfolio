@@ -74,6 +74,11 @@ try/catch so private-mode browsers degrade quietly.
 
 ## Versions
 
+**v1.3.0** — the hero signature becomes a lineage diagram: sources fan in,
+transform layers in the middle, consumers fan out, with packets travelling the
+paths. Labels written in plain language for non-technical readers, with the
+stack as sub-captions. Replaces the run-activity strip.
+
 **v1.2.0** — warm redesign. Warm-white ground with tangerine and teal accents,
 Bricolage Grotesque / Newsreader / JetBrains Mono, uppercase headings, the run
 activity strip as signature, self-hosted fonts, copy-email with feedback,

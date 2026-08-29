@@ -3,9 +3,9 @@
 Personal portfolio site for **Abhinandan Kumar**, Data Engineer.
 Static, single file, no build step. `index.html` is the whole site.
 
-**Current: v1.2.** The visual system below is approved. Add to it; don't
+**Current: v1.3.** The visual system below is approved. Add to it; don't
 redesign it. If a change would alter the palette, the typefaces, the uppercase
-rule or the run-strip signature, ask first.
+rule or the lineage-diagram signature, ask first.
 
 ## Repo shape
 
@@ -21,7 +21,7 @@ No package.json, no bundler, no framework, and none should be added. The site
 must keep working opened as a `file://` URL with no network — which is why the
 fonts are in the repo rather than loaded from Google Fonts.
 
-## Design system (v1.2)
+## Design system (v1.3)
 
 **Concept — lineage.** The page reads as a directed flow, the way a pipeline
 does. The sticky left rail is a lineage spine whose nodes fill as sections
@@ -52,9 +52,9 @@ light theme's warmth.
 
 - **Tangerine** = energy and attention. The surname, eyebrows, heading sweeps,
   bullet dashes, the primary button, the active rail node.
-- **Teal** = verified, resolved, it worked. Outcome callouts, the "all green"
-  indicator, green cells in the run strip, the arrow in `7s → 45ms`, ghost
-  button hover.
+- **Teal** = verified, resolved, it worked. Outcome callouts, the consumer
+  boxes and outbound packets in the hero diagram, the arrow in `7s → 45ms`,
+  ghost button hover.
 
 A third colour is not available. If something needs to stand out and is
 neither energy nor outcome, it doesn't need to stand out.
@@ -88,14 +88,28 @@ it is the only uppercase element allowed to sit against it.
 
 Uppercase always carries letter-spacing (`.11em`–`.2em` depending on size).
 
-**Signature — the run strip.** A row of uniform-height cells under the hero
-thesis, opacity varying, a few teal for green runs, breathing on a staggered
-loop. It's the visual language of a task-run history, which is what Abhinandan
-actually looks at daily. It is **abstract and decorative** — it must never be
-captioned or framed as real data, and no numbers attach to it. It's generated
-from a seeded PRNG so it renders identically every load.
+**Signature — the lineage diagram.** An inline SVG under the hero thesis:
+three sources fan in, the middle narrows to COLLECT → TRANSFORM → TRUSTED DATA,
+and it fans back out to dashboards, reports and applications. Packets travel
+the actual curved paths via `animateMotion` — tangerine going in, teal coming
+out, so the colour system carries the story.
 
-**Motion.** A staggered hero reveal on load, the run strip breathing, a
+**Its labels are written for a non-technical reader.** Abhinandan asked for
+this specifically: recruiters and HR see the site too. So the box labels are
+plain language (DEVICE DATA, BUSINESS DATA, COLLECT, TRANSFORM, TRUSTED DATA,
+DASHBOARDS, REPORTS, APPLICATIONS) with the stack in smaller muted type
+underneath (IOT TELEMETRY, SQL SERVER, COPY INTO, DBT MODELS, FACTS + DIMS,
+POWER BI…). Three group captions narrate it: DATA COMES FROM / WHAT I BUILD /
+SO PEOPLE CAN DECIDE. **Do not swap the plain labels for jargon** — the
+sub-captions exist so engineers still get the detail.
+
+Mechanics worth knowing: packets carry `visibility="hidden"` plus a `<set>` at
+their own `begin`, or SVG parks them at 0,0 until they start. The diagram is
+600px minimum width inside a horizontally scrolling `.flow`; `.flow-wrap` fades
+its right edge while more can be scrolled, toggled from JS on scroll, resize
+and `document.fonts.ready`.
+
+**Motion.** A staggered hero reveal on load, packets travelling the diagram, a
 tangerine underline sweeping under each `h2` as it enters the viewport, hover
 lifts on buttons, a padding shift on contact rows. All of it disabled under
 `prefers-reduced-motion`. Resist adding more — scattered animation is what
