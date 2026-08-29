@@ -166,9 +166,10 @@ Abhinandan supplied, each with a defensible call and an outcome.
   public artefact: the URL goes on his LinkedIn and his resume. No phone number
   on the page, and none in the CV committed here. `build_cv.js` takes
   `PUBLIC=1` to drop it; the private build that keeps it is emailed to
-  recruiters directly and **must never be committed**. Before any change to the
-  contact list or the CV, run `grep -rl "98177" . --exclude-dir=.git` and
-  expect no matches.
+  recruiters directly and **must never be committed**. After any change to the
+  contact list or the CV, grep the repo (excluding `.git`) for his phone number
+  and expect no matches. Only `index.html`, `fonts/`, the CV and `og-image.png`
+  are published; the markdown files stay out of the deploy.
 
 Settled: **DE resume is the canonical framing.** **3 years** experience — career
 started July 2023, so the hero metric is right and the full-stack CV's "2+" is
