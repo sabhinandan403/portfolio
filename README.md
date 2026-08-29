@@ -28,6 +28,23 @@ Then open <http://localhost:8080>.
 Any static server does the same job — `npx serve`, `php -S localhost:8080`,
 the VS Code Live Server extension.
 
+## Before deploying publicly
+
+`index.html` carries a `SITE_URL` placeholder in the social-preview meta tags.
+Replace it with the live URL — those tags need absolute URLs or LinkedIn,
+WhatsApp and Slack won't render the preview card:
+
+```bash
+sed -i '' 's|SITE_URL|https://your-site-url|g' index.html
+```
+
+(Drop the `''` after `-i` on Linux.)
+
+The CV in this repo is the **public build — no phone number.** It's generated
+by `build_cv.js` with `PUBLIC=1`; the private build, which keeps the phone
+number, is the one to send directly to recruiters. Don't overwrite the repo
+copy with the private one.
+
 ## Deploy it
 
 Because it's static, every host works the same way: point it at this folder.
@@ -73,9 +90,6 @@ rail overrides it and remembers the choice in `localStorage`, wrapped in
 try/catch so private-mode browsers degrade quietly.
 
 ## Versions
-
-**v1.7.0** — case studies rewritten for a non-technical reader: internal lingo
-removed, jargon glossed in place, titles made human.
 
 **v1.6.0** — recreated sensor heat map added to the third case study (invented
 data, no identifiers); location, availability and the three-year figure settled.
