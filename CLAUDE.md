@@ -159,6 +159,9 @@ Three or four projects maximum. The strongest one goes first.
 
 ## Open items — pick up here
 
+**Planned but not built:** see `ROADMAP.md`. Nothing in it is approved for
+building without asking Abhinandan first.
+
 The Work section is **built** — four case studies, written only from material
 Abhinandan supplied, each with a defensible call and an outcome.
 
