@@ -135,10 +135,12 @@ The three hero metrics are `3 yrs`, `10,000+` daily telemetry points, and
 
 ## Case studies — the pattern for the Work section
 
-**On the page the heading is "Engineering highlights", not "Selected case
+**On the page the heading is "Problems I've solved", not "Selected case
 studies".** Abhinandan flagged the original as design-portfolio vocabulary that
-reads borrowed on a data engineer's site. "Case study" stays the internal name
-for the pattern below; it does not appear in the UI.
+reads borrowed on a data engineer's site; we tried "Engineering highlights"
+briefly and settled here because the section is about problems and the calls he
+made, and the first person matches the hero thesis. "Case study" stays the
+internal name for the pattern below; it does not appear in the UI.
 
 The `#projects` section holds a placeholder until project material arrives.
 Each case study follows this shape, which comes from IxDF's portfolio guidance
