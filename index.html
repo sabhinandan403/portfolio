@@ -286,17 +286,34 @@ ul.pts li b{color:var(--ink);font-weight:500}
 dl{margin:0}
 
 /* ============================================================
-   PROJECTS — invitation, not a grey box
+   CASE STUDIES
+   Problem, build, the defensible call, outcome. Beats are optional —
+   a case study renders correctly with any subset of them.
    ============================================================ */
-.slot{border:2px dashed var(--rule-2);padding:32px 28px;border-radius:2px;background:var(--surface)}
-.slot .lead{font-size:17px;color:var(--ink);margin:0 0 14px}
-.slot p{color:var(--ink-2);font-size:16px;margin:0 0 12px}
-.slot ol{margin:0;padding-left:20px;color:var(--ink-2);font-size:16px}
-.slot ol li{margin-bottom:5px}
-.slot .note{
-  font-family:var(--f-mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--cool);margin:18px 0 0;
+.case{padding:0 0 40px;border-bottom:1px solid var(--rule);margin-bottom:38px}
+.case:last-child{border-bottom:none;margin-bottom:0;padding-bottom:8px}
+.case h3{
+  font-size:20px;font-weight:700;letter-spacing:-.008em;
+  text-transform:uppercase;line-height:1.15;margin:0 0 7px;
 }
+.case-meta{
+  font-family:var(--f-mono);font-size:10px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--hot);margin:0 0 16px;
+}
+.case-meta .now{color:var(--cool)}
+.beat{margin:0 0 18px}
+.beat:last-of-type{margin-bottom:0}
+.beat-k{
+  display:block;font-family:var(--f-mono);font-size:9px;font-weight:500;
+  letter-spacing:.17em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;
+}
+.beat p{margin:0;font-size:16.5px;line-height:1.58;color:var(--ink-2)}
+.beat p b{color:var(--ink);font-weight:500}
+.beat.call{
+  border-left:3px solid var(--hot);padding-left:16px;background:none;
+}
+.beat.call .beat-k{color:var(--hot)}
+.beat.call p{color:var(--ink)}
 
 /* outcome callout — teal means it worked */
 .outcome{margin-top:16px;padding:13px 16px;border-left:3px solid var(--cool);background:var(--surface)}
@@ -615,18 +632,87 @@ footer{
     <section id="projects">
       <p class="eyebrow">Work</p>
       <h2>Selected case studies</h2>
-      <div class="slot">
-        <p class="lead">Three or four projects go here, each told as a case study rather than a card.</p>
-        <p>The pattern is built and waiting — problem, role, what got built, the decision worth defending, what broke and how it was found, then the outcome pulled out in teal so it reads before the paragraph does.</p>
-        <ol>
-          <li>What it was, and who it was for</li>
-          <li>What was broken before</li>
-          <li>The decision you'd defend in an interview</li>
-          <li>What went wrong, and how you found it</li>
-          <li>What changed for the people using it</li>
-        </ol>
-        <p class="note">Awaiting project material</p>
-      </div>
+
+      <article class="case">
+        <h3>V2 APIs on a warm cache</h3>
+        <p class="case-meta">Vantiva India · HomeSight Care · Architecture &amp; implementation</p>
+        <div class="chips"><span>Node.js</span><span>Kafka</span><span>In-memory cache</span><span>RBAC/ABAC</span><span>React</span></div>
+
+        <div class="beat">
+          <span class="beat-k">The problem</span>
+          <p>The account page didn't make one slow request — it made several. Every v1 endpoint went straight to the database, and some of them took <b>seven seconds</b>. Users watched the page assemble itself piece by piece.</p>
+        </div>
+        <div class="beat">
+          <span class="beat-k">What I built</span>
+          <p>A v2 API layer that stops going to the database for things that rarely change. User records, HC200 device details and account details are loaded into an in-memory cache when the server starts and indexed for direct lookup, with the database still behind it as a fallback. I owned the <b>users</b> and <b>appregistry</b> modules, plus the frontend work for appregistry, and added RBAC/ABAC across the migrated endpoints.</p>
+        </div>
+        <div class="beat call">
+          <span class="beat-k">The call I'd defend</span>
+          <p>I had a free hand on the architecture. The application was already tightly coupled, so breaking it into services would have meant paying the whole distributed-systems cost up front for none of the benefit. I chose a monolith — but a <b>vertical modular</b> one, where users and appregistry own their own boundaries inside a single deployable. It's the shape that lets you pull a service out later if it ever earns it, without pretending you're already there.</p>
+        </div>
+        <div class="outcome">
+          <span class="lab">Outcome</span>
+          <span class="val">High-traffic responses went from roughly 7 seconds to 40–50 ms.</span>
+        </div>
+      </article>
+
+      <article class="case">
+        <h3>Telemetry into tables people can query</h3>
+        <p class="case-meta">Vantiva India · Smart Spaces</p>
+        <div class="chips"><span>Databricks</span><span>PySpark</span><span>Cassandra</span><span>Medallion</span><span>AWS Lambda</span><span>Power BI</span></div>
+
+        <div class="beat">
+          <span class="beat-k">The problem</span>
+          <p>IoT telemetry landed in Cassandra, which is built for writes rather than for the questions analysts ask of it. Wi-Fi mesh uptime was worked out router by router, by hand.</p>
+        </div>
+        <div class="beat">
+          <span class="beat-k">What I built</span>
+          <p>Ingestion out of Cassandra into Databricks, then a <b>medallion</b> layout — raw, cleaned, and gold tables rebuilt daily — so reporting reads from a curated layer rather than from the device stream. On top of it, an on-demand Excel report driven by an AWS Lambda, letting site managers pull router and device performance for the last 24 hours or a custom range across 50+ sites.</p>
+        </div>
+        <div class="outcome">
+          <span class="lab">Outcome</span>
+          <span class="val">Gold tables feed Power BI dashboards used by a senior architect, the sales team and clients. The same reports were how we traced LoRa and Zigbee faults — routers dropping off, devices failing to sync, missing packets — supporting a ~99% uptime SLA.</span>
+        </div>
+      </article>
+
+      <article class="case">
+        <h3>A day of sensor data you can read at a glance</h3>
+        <p class="case-meta">Vantiva India · HomeSight Care</p>
+        <div class="chips"><span>React</span><span>Node.js</span><span>Cassandra</span><span>Time bucketing</span></div>
+
+        <div class="beat">
+          <span class="beat-k">The problem</span>
+          <p>Motion and door/window sensors produced a stream of individual events. Useful for a machine, unreadable for a person — there was no way to look at a day and see the shape of it.</p>
+        </div>
+        <div class="beat">
+          <span class="beat-k">What I built</span>
+          <p>A heat map that reads sensor data from Cassandra and lays a day out in <b>15-minute buckets</b> per device. Behind it sits one generalised aggregation function: which aggregation to run and which sensor to run it against both come from the request URL, so adding a sensor type doesn't mean writing new backend code.</p>
+        </div>
+        <div class="beat call">
+          <span class="beat-k">The call I'd defend</span>
+          <p>Bucketing happens in the <b>principal user's timezone</b> — the timezone where the HC200 device physically sits, not the server's and not the viewer's. It's a small detail that decides whether the picture is true: get it wrong and someone's entire day shifts by hours, and a chart that's confidently wrong is worse than no chart.</p>
+        </div>
+      </article>
+
+      <article class="case">
+        <h3>Ten KPIs, and what they actually mean</h3>
+        <p class="case-meta">Vantiva India · <span class="now">In progress</span></p>
+        <div class="chips"><span>Snowflake</span><span>dbt</span><span>Data modelling</span><span>Source-to-target mapping</span></div>
+
+        <div class="beat">
+          <span class="beat-k">The problem</span>
+          <p>The data was already in Snowflake and there was a list of ten KPIs to report on. What didn't exist was an agreed definition of what any of them meant — which is the part that quietly decides whether every number downstream is right.</p>
+        </div>
+        <div class="beat">
+          <span class="beat-k">What I'm building</span>
+          <p>I wrote the definitions first, starting from the literal reading of each KPI and settling them with the business. Then source grain investigation, the business definitions, and source-to-target mapping. The dbt models orchestrating the ELT pipelines are being built on top of that groundwork now.</p>
+        </div>
+        <div class="beat call">
+          <span class="beat-k">The call I'd defend</span>
+          <p>Definitions before models. It's slower at the start and it looks like nothing is being built — but a mart whose grain and business meaning were settled up front is one you can still trust a year later, and one nobody has to re-litigate every time a number looks off.</p>
+        </div>
+      </article>
+
     </section>
 
     <!-- ========== CREDENTIALS ========== -->
@@ -657,8 +743,8 @@ footer{
       <div class="contact-links">
         <a href="mailto:sabhinandan403@gmail.com"><span class="ck">Email</span><span class="cv">sabhinandan403@gmail.com</span></a>
         <a href="tel:+919817750262"><span class="ck">Phone</span><span class="cv">+91 98177 50262</span></a>
-        <a href="https://linkedin.com/in/abhinandankumar" target="_blank" rel="noopener"><span class="ck">LinkedIn</span><span class="cv">/in/abhinandankumar</span></a>
-        <a href="https://github.com/abhinandankumar" target="_blank" rel="noopener"><span class="ck">GitHub</span><span class="cv">/abhinandankumar</span></a>
+        <a href="https://www.linkedin.com/in/abhinandan-kumar-611a64192/" target="_blank" rel="noopener"><span class="ck">LinkedIn</span><span class="cv">/in/abhinandankumar</span></a>
+        <a href="https://github.com/sabhinandan403" target="_blank" rel="noopener"><span class="ck">GitHub</span><span class="cv">/abhinandankumar</span></a>
         <a href="Abhinandan_Kumar_CV.pdf" download><span class="ck">CV</span><span class="cv">Abhinandan_Kumar_CV.pdf</span></a>
       </div>
       <footer>© <span id="yr">2026</span> Abhinandan Kumar</footer>
