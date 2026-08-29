@@ -190,30 +190,28 @@ The data is invented and hardcoded as a 96-character string in the renderer;
 it's a magnitude encoding — and the caption on the page says it is a recreation
 and not the product UI. **Do not replace it with the real screenshot.**
 
-## Deploying
+## Deploying — live
 
-The site is public. It is a static folder with no build step, so any static
-host serves it: publish directory is the repo root, build command is empty.
+**Live at https://abhinandan-kumar.netlify.app** — repo
+`github.com/sabhinandan403/portfolio` (public, branch `main`), linked to
+Netlify with auto-publishing on. **A push to `main` redeploys the site.** No
+manual upload step; `netlify.toml` sets publish `.` and an empty build command.
 
-**The URL matters more than the host here.** His GitHub handle is
-`sabhinandan403`, so GitHub Pages would give him `sabhinandan403.github.io` —
-which does not read as his name on a resume. Netlify lets him choose the
-subdomain, so `abhinandan-kumar.netlify.app` is the better URL for the stated
-purpose. If he later buys `abhinandankumar.dev`, Netlify points at the same
-site.
+Netlify was chosen over GitHub Pages because a Pages user site would be
+`sabhinandan403.github.io` — his handle, not his name, and this URL goes on a
+resume. If he buys a domain later, point it at the same project.
 
-**Before publishing, `SITE_URL` must be replaced.** The Open Graph and
-canonical tags in `index.html` carry a `SITE_URL` placeholder, five
-occurrences. Scrapers need absolute URLs, so until it is replaced the LinkedIn
-preview card renders blank:
+`SITE_URL` is already replaced throughout `index.html` with the live origin.
+**If the site ever moves, those five meta tags must be updated** (canonical,
+`og:url`, `og:image`, and the two theme-colors are origin-independent), or link
+previews break. `og-image.png` (1200x630) is the preview card.
 
-```bash
-sed -i '' 's|SITE_URL|https://the-live-url|g' index.html   # drop '' on Linux
-```
+Also configured, and worth not undoing: visitor access is public (Netlify now
+creates projects with SSO team login required, which would put a login wall in
+front of recruiters), and the "Powered by Netlify" badge is switched off.
 
-`og-image.png` (1200x630, site palette) is the card image. After the first
-deploy, run the URL through LinkedIn's Post Inspector once — LinkedIn caches
-previews hard and the first share will otherwise show nothing.
+After the first share, run the URL through LinkedIn's Post Inspector once —
+LinkedIn caches previews hard.
 
 ## Working on this
 

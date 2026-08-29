@@ -1,5 +1,7 @@
 # Abhinandan Kumar — Portfolio
 
+**Live at <https://abhinandan-kumar.netlify.app>** — pushes to `main` deploy automatically.
+
 A single-file, dependency-free portfolio site. Everything lives in `index.html`:
 markup, styles and script. The typefaces are self-hosted in `fonts/`, so the
 page makes **no external requests at all** and renders identically offline.
