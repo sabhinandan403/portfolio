@@ -110,10 +110,18 @@ its right edge while more can be scrolled, toggled from JS on scroll, resize
 and `document.fonts.ready`.
 
 **Motion.** A staggered hero reveal on load, packets travelling the diagram, a
-tangerine underline sweeping under each `h2` as it enters the viewport, hover
-lifts on buttons, a padding shift on contact rows. All of it disabled under
-`prefers-reduced-motion`. Resist adding more — scattered animation is what
-makes a page read as generated.
+tangerine underline sweeping under each `h2`, hover lifts on buttons, a padding
+shift on contact rows. All of it disabled under `prefers-reduced-motion`.
+Resist adding more — scattered animation is what makes a page read as
+generated.
+
+**The heading sweep re-arms.** The observer toggles `.swept` on entry *and*
+off on exit rather than unobserving, so the sweep replays every time a section
+is revisited — Abhinandan asked for this explicitly. It depends on the
+transition living on `.swept::after` and **not** on the base `h2::after` rule:
+removing the class takes the transition with it, so the bar snaps back to zero
+off-screen instead of un-sweeping in view. If you ever move that `transition`
+declaration up to the base rule, the reset becomes visible and looks broken.
 
 ## Content rules
 

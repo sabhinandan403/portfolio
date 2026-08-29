@@ -685,10 +685,15 @@ footer{
   }
 
   /* ---------- heading sweep on scroll into view ---------- */
+  /* Re-arms every time: the class is added on entry and dropped on exit, so
+     the sweep replays whenever a section is revisited. The reset is instant
+     because the transition is declared on .swept — removing the class takes
+     the transition with it, so the bar snaps back to zero off-screen rather
+     than un-sweeping in view. */
   if('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('swept'); io.unobserve(e.target); }
+        e.target.classList.toggle('swept', e.isIntersecting);
       });
     }, {rootMargin:'0px 0px -18% 0px'});
     document.querySelectorAll('h2').forEach(function(h){ io.observe(h); });

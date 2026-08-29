@@ -74,6 +74,9 @@ try/catch so private-mode browsers degrade quietly.
 
 ## Versions
 
+**v1.3.1** — the heading underline sweep now replays on every revisit to a
+section, rather than animating once per page load.
+
 **v1.3.0** — the hero signature becomes a lineage diagram: sources fan in,
 transform layers in the middle, consumers fan out, with packets travelling the
 paths. Labels written in plain language for non-technical readers, with the
