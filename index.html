@@ -646,6 +646,10 @@ footer{
           <span class="beat-k">What I built</span>
           <p>A v2 API layer that stops going to the database for things that rarely change. User records, HC200 device details and account details are loaded into an in-memory cache when the server starts and indexed for direct lookup, with the database still behind it as a fallback. I owned the <b>users</b> and <b>appregistry</b> modules, plus the frontend work for appregistry, and added RBAC/ABAC across the migrated endpoints.</p>
         </div>
+        <div class="beat">
+          <span class="beat-k">How it stays current</span>
+          <p>Nothing refreshes the cache on a timer. A Kafka consumer subscribes to change events on each source and applies inserts, updates and deletes to the in-memory copy <b>as they arrive</b>, so it tracks the database continuously instead of going stale between polls. The honest limit: if that consumer drops its connection there's no periodic recovery poll behind it, and the cache stops tracking until it reconnects. Knowing exactly where that edge sits is worth more than pretending it isn't there.</p>
+        </div>
         <div class="beat call">
           <span class="beat-k">The call I'd defend</span>
           <p>I had a free hand on the architecture. The application was already tightly coupled, so breaking it into services would have meant paying the whole distributed-systems cost up front for none of the benefit. I chose a monolith — but a <b>vertical modular</b> one, where users and appregistry own their own boundaries inside a single deployable. It's the shape that lets you pull a service out later if it ever earns it, without pretending you're already there.</p>
@@ -669,9 +673,13 @@ footer{
           <span class="beat-k">What I built</span>
           <p>Ingestion out of Cassandra into Databricks, then a <b>medallion</b> layout — raw, cleaned, and gold tables rebuilt daily — so reporting reads from a curated layer rather than from the device stream. On top of it, an on-demand Excel report driven by an AWS Lambda, letting site managers pull router and device performance for the last 24 hours or a custom range across 50+ sites.</p>
         </div>
+        <div class="beat call">
+          <span class="beat-k">The call I'd defend</span>
+          <p>Cassandra held raw rows — written for speed of capture, not for answering questions. Every KPI needed its own cleaning and segregation, and doing that work inside each report would have meant the same logic living in several places and the numbers quietly drifting apart. The medallion split does the cleaning <b>once, in the middle</b>, so everything downstream reads the same curated layer and agrees with itself.</p>
+        </div>
         <div class="outcome">
           <span class="lab">Outcome</span>
-          <span class="val">Gold tables feed Power BI dashboards used by a senior architect, the sales team and clients. The same reports were how we traced LoRa and Zigbee faults — routers dropping off, devices failing to sync, missing packets — supporting a ~99% uptime SLA.</span>
+          <span class="val">Gold tables feed Power BI dashboards used by a senior architect, the sales team and clients, and the same curated layer now backs ML work including churn prediction. The same reports were how we traced LoRa and Zigbee faults — routers dropping off, devices failing to sync, missing packets — supporting a ~99% uptime SLA.</span>
         </div>
       </article>
 
@@ -682,7 +690,7 @@ footer{
 
         <div class="beat">
           <span class="beat-k">The problem</span>
-          <p>Motion and door/window sensors produced a stream of individual events. Useful for a machine, unreadable for a person — there was no way to look at a day and see the shape of it.</p>
+          <p>Motion and door/window sensors produced a stream of individual events. Useful for a machine, unreadable for a person — there was no way to look at a day and see the shape of it. And the person who needed to read it wasn't an operator or an analyst.</p>
         </div>
         <div class="beat">
           <span class="beat-k">What I built</span>
@@ -690,7 +698,11 @@ footer{
         </div>
         <div class="beat call">
           <span class="beat-k">The call I'd defend</span>
-          <p>Bucketing happens in the <b>principal user's timezone</b> — the timezone where the HC200 device physically sits, not the server's and not the viewer's. It's a small detail that decides whether the picture is true: get it wrong and someone's entire day shifts by hours, and a chart that's confidently wrong is worse than no chart.</p>
+          <p>Bucketing happens in the <b>timezone of the home the device sits in</b> — not the server's, and not the viewer's. That distinction is the whole thing: the person reading this is often in a different country from the person it's about. Get it wrong and someone's entire day shifts by hours, and a chart that's confidently wrong is worse than no chart at all.</p>
+        </div>
+        <div class="outcome">
+          <span class="lab">Who reads it</span>
+          <span class="val">Families, not operators. Someone whose elderly parent lives back home, opening the app to see that there was normal movement this morning — delivered through a US elderly-care provider.</span>
         </div>
       </article>
 

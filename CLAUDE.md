@@ -3,7 +3,7 @@
 Personal portfolio site for **Abhinandan Kumar**, Data Engineer.
 Static, single file, no build step. `index.html` is the whole site.
 
-**Current: v1.3.** The visual system below is approved. Add to it; don't
+**Current: v1.5.** The visual system below is approved. Add to it; don't
 redesign it. If a change would alter the palette, the typefaces, the uppercase
 rule or the lineage-diagram signature, ask first.
 
@@ -21,7 +21,7 @@ No package.json, no bundler, no framework, and none should be added. The site
 must keep working opened as a `file://` URL with no network — which is why the
 fonts are in the repo rather than loaded from Google Fonts.
 
-## Design system (v1.3)
+## Design system (v1.5)
 
 **Concept — lineage.** The page reads as a directed flow, the way a pipeline
 does. The sticky left rail is a lineage spine whose nodes fill as sections
@@ -152,36 +152,29 @@ Three or four projects maximum. The strongest one goes first.
 
 ## Open items — pick up here
 
-**1. The Work section is empty.** `#projects` holds a dashed placeholder that
-reads "awaiting project material". This is the only unfinished part of the site
-and the highest-value thing left to do — see the case-study pattern above.
+The Work section is **built** — four case studies, written only from material
+Abhinandan supplied. Remaining:
 
-For each of three or four projects, Abhinandan needs to supply: what it was and
-who for · what was broken before · his actual role (sole owner? one of four?) ·
-what he built · **the decision he'd defend in an interview** · what went wrong
-and how he found it · the outcome · what he'd do differently · any screenshot or
-diagram. The decision question is the one that matters most; it's what
-separates the site from every other CV listing Snowflake and dbt.
+- **Confidentiality.** He sent a real product screenshot (device IDs, room
+  names) and a screenshot of his own code-analysis session naming internal
+  modules and cache sources. **None of that is on the site and none of it
+  should go on it.** The cache case study describes the mechanism — Kafka CDC,
+  event-driven, no scheduled refresh — without naming files, libraries or the
+  subscribed sources. Keep it that way.
+- **A neutral heat-map graphic** was offered and not yet answered: a recreation
+  of the 24-hour / 15-minute-bucket band with invented data and no identifiers,
+  in the site palette. It would strengthen that case study.
+- **City** for `.rail-foot` — still just "India".
+- **Years of experience.** The DE resume says 3 years, the full-stack one says
+  2+. The site and hero metric say 3. Worth settling so they agree.
+- **Open Graph tags** plus a preview image, so the URL renders as a card on
+  LinkedIn and WhatsApp.
 
-Do not invent project details or outcomes. If something isn't confirmed by him,
-it doesn't go on the page.
-
-**2. Decide before making the site public.** Either fill the Work section or
-hide it — shipping a visible "awaiting project material" placeholder reads as
-half-built to a recruiter. Hiding it means commenting out the `#projects`
-section and its rail link; the rail handles five items fine.
-
-**3. Unconfirmed details.**
-- `.rail-foot` says "India" — a city was never confirmed.
-- The GitHub and LinkedIn handles came from the CV; nobody has checked they
-  resolve.
-- The site and the CV PDF both carry his phone number. Once the repo is public
-  and indexed, that's public. He was asked and hasn't decided; offer again
-  before the first push.
-
-**4. Not yet built, worth doing.** Open Graph / Twitter meta tags plus a preview
-image, so the URL renders as a card when he shares it on LinkedIn or WhatsApp
-rather than as a bare link. He's shared it with recruiters, so this matters.
+Settled: the **DE resume is the canonical framing** — the site presents him as
+a Data Engineer, not full-stack. The contact links now point at the real
+profiles (`linkedin.com/in/abhinandan-kumar-611a64192`,
+`github.com/sabhinandan403`) while displaying the clean shortened text; this is
+deliberate, don't "fix" the display strings to match the hrefs.
 
 ## Deploying
 

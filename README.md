@@ -74,6 +74,12 @@ try/catch so private-mode browsers degrade quietly.
 
 ## Versions
 
+**v1.5.0** — case studies deepened: how the cache stays current and where it
+breaks, why medallion over reading Cassandra directly, and who the heat map is
+actually for.
+
+**v1.4.0** — Work section built out into four case studies; contact links fixed.
+
 **v1.3.1** — the heading underline sweep now replays on every revisit to a
 section, rather than animating once per page load.
 
