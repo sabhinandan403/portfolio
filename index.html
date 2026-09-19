@@ -361,6 +361,7 @@ dl{margin:0}
 }
 .case-meta .now{color:var(--cool)}
 .beat{margin:0 0 18px}
+.outcome+.beat{margin-top:18px}
 .beat:last-of-type{margin-bottom:0}
 .beat-k{
   display:block;font-family:var(--f-mono);font-size:9px;font-weight:500;
@@ -696,6 +697,10 @@ footer{
         <h3>The page that took seven seconds</h3>
         <p class="case-meta">Vantiva India · HomeSight Care · Architecture &amp; implementation</p>
         <div class="chips"><span>Node.js</span><span>Kafka</span><span>In-memory cache</span><span>RBAC/ABAC</span><span>React</span></div>
+        <div class="outcome">
+          <span class="lab">Outcome</span>
+          <span class="val">High-traffic responses went from roughly 7 seconds to 40–50 ms.</span>
+        </div>
 
         <div class="beat">
           <span class="beat-k">The problem</span>
@@ -713,16 +718,16 @@ footer{
           <span class="beat-k">The call I'd defend</span>
           <p>I had a free hand on the architecture. The application was already tightly coupled, so breaking it into separate services would have meant paying the full cost of a distributed system up front and getting none of the benefit. I kept it as one deployable application — but structured so each area, user accounts and app registration, owns its own boundary inside it. That's the shape that lets you split a piece off later if it ever earns it, without pretending you're already there.</p>
         </div>
-        <div class="outcome">
-          <span class="lab">Outcome</span>
-          <span class="val">High-traffic responses went from roughly 7 seconds to 40–50 ms.</span>
-        </div>
       </article>
 
       <article class="case">
         <h3>Telemetry into tables people can query</h3>
         <p class="case-meta">Vantiva India · Smart Spaces</p>
         <div class="chips"><span>Databricks</span><span>PySpark</span><span>Cassandra</span><span>Medallion</span><span>AWS Lambda</span><span>Power BI</span></div>
+        <div class="outcome">
+          <span class="lab">Outcome</span>
+          <span class="val">Those report-ready tables feed Power BI dashboards used by a senior architect, the sales team and clients, and the same curated layer now backs ML work including churn prediction. The same reports were how we traced LoRa and Zigbee faults — routers dropping off, devices failing to sync, missing packets — supporting a ~99% uptime SLA.</span>
+        </div>
 
         <div class="beat">
           <span class="beat-k">The problem</span>
@@ -736,16 +741,16 @@ footer{
           <span class="beat-k">The call I'd defend</span>
           <p>Cassandra held raw rows — written for speed of capture, not for answering questions. Every KPI needed its own cleaning and segregation, and doing that work inside each report would have meant the same logic living in several places and the numbers quietly drifting apart. The medallion split does the cleaning <b>once, in the middle</b>, so everything downstream reads the same curated layer and agrees with itself.</p>
         </div>
-        <div class="outcome">
-          <span class="lab">Outcome</span>
-          <span class="val">Those report-ready tables feed Power BI dashboards used by a senior architect, the sales team and clients, and the same curated layer now backs ML work including churn prediction. The same reports were how we traced LoRa and Zigbee faults — routers dropping off, devices failing to sync, missing packets — supporting a ~99% uptime SLA.</span>
-        </div>
       </article>
 
       <article class="case">
         <h3>A day of sensor data you can read at a glance</h3>
         <p class="case-meta">Vantiva India · HomeSight Care</p>
         <div class="chips"><span>React</span><span>Node.js</span><span>Cassandra</span><span>Time bucketing</span></div>
+        <div class="outcome">
+          <span class="lab">Who reads it</span>
+          <span class="val">Families, not operators. Someone whose elderly parent lives back home, opening the app to see that there was normal movement this morning — delivered through a US elderly-care provider.</span>
+        </div>
 
         <div class="beat">
           <span class="beat-k">The problem</span>
@@ -788,10 +793,6 @@ footer{
         <div class="beat call">
           <span class="beat-k">The call I'd defend</span>
           <p>Bucketing happens in the <b>timezone of the home the device sits in</b> — not the server's, and not the viewer's. That distinction is the whole thing: the person reading this is often in a different country from the person it's about. Get it wrong and someone's entire day shifts by hours, and a chart that's confidently wrong is worse than no chart at all.</p>
-        </div>
-        <div class="outcome">
-          <span class="lab">Who reads it</span>
-          <span class="val">Families, not operators. Someone whose elderly parent lives back home, opening the app to see that there was normal movement this morning — delivered through a US elderly-care provider.</span>
         </div>
       </article>
 
