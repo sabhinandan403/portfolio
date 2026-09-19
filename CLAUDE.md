@@ -147,15 +147,24 @@ Each case study follows this shape, which comes from IxDF's portfolio guidance
 (show thinking, not artifacts; results before detail):
 
 1. **Hook** — what it was, who it was for, Abhinandan's actual role
-2. **Problem** — what was broken before
-3. **What got built** — architecture and stack
-4. **The decision worth defending** — where two options were reasonable and
+2. **Outcome first** — the teal `.outcome` callout sits directly under the
+   chips, **above the prose**. A recruiter gives the page seconds, so the
+   result has to land before the reading does. `.outcome+.beat{margin-top:18px}`
+   restores the gap the box needs when it leads. **Do not move it back to the
+   bottom** — that is the arrangement this replaced, deliberately.
+3. **Problem** — what was broken before
+4. **What got built** — architecture and stack
+5. **The decision worth defending** — where two options were reasonable and
    why he picked one. This is the highest-value part; give it room.
-5. **What went wrong and how he found it** — iteration beats polish
-6. **Outcome** — pulled out in a teal `.outcome` callout so a skimming reader
-   gets the result without reading the paragraph
+6. **What went wrong and how he found it** — iteration beats polish
 
 Three or four projects maximum. The strongest one goes first.
+
+Two known irregularities, both deliberate: the heat map case leads with
+**"Who reads it"** rather than an outcome, because *families watching an
+elderly parent* is the fact worth landing first there; and the Snowflake/dbt
+case has no lead box at all, because it is in progress and inventing a result
+for it would break the honesty rule.
 
 ## Open items — pick up here
 
